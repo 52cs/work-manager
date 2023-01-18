@@ -32,7 +32,8 @@ import {
   CREATE_CHALLENGE_RESOURCE_FAILURE,
   DELETE_CHALLENGE_SUCCESS,
   DELETE_CHALLENGE_FAILURE,
-  DELETE_CHALLENGE_PENDING
+  DELETE_CHALLENGE_PENDING,
+  MULTI_ROUND_CHALLENGE_TEMPLATE_ID
 } from '../config/constants'
 
 const initialState = {
@@ -108,7 +109,7 @@ export default function (state = initialState, action) {
         ...state,
         challengeDetails: { ...action.payload,
           // change the phase order for the design challenge with multiple phases
-          phases: (action.payload.legacy.subTrack === 'WEB_DESIGNS' && action.payload.phases.length === 8) ? [
+          phases: (action.payload.timelineTemplateId === MULTI_ROUND_CHALLENGE_TEMPLATE_ID && action.payload.phases.length === 8) ? [
             action.payload.phases.find(x => x.name === 'Registration'),
             action.payload.phases.find(x => x.name === 'Checkpoint Submission'),
             action.payload.phases.find(x => x.name === 'Checkpoint Screening'),
